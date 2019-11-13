@@ -15,16 +15,16 @@
 
 		<div id="gauche">
 
-				<!-- Barre de recherche : nom et prénom -->
+			<!-- Barre de recherche : nom et prénom -->
 
 			<div id="cellule">
 
 				<?php
-					$patients = $bdd->query('SELECT nom, prenom FROM patient ORDER BY nom, prenom ASC');
+					$patients = $bdd->query('SELECT nom, prenom, code FROM patient ORDER BY nom, prenom ASC');
 
 					if(isset($_GET['q']) AND !empty($_GET['q'])) { // q est le nom de la requête query
 						$q = htmlspecialchars($_GET['q']); // pour la sécurisation et éviter modifications
-						$patients = $bdd->query('SELECT nom, prenom FROM patient WHERE nom LIKE "%'.$q.'%" or prenom LIKE "%'.$q.'%" ORDER BY nom, prenom ASC');
+						$patients = $bdd->query('SELECT nom, prenom, code FROM patient WHERE nom LIKE "%'.$q.'%" or prenom LIKE "%'.$q.'%" ORDER BY nom, prenom ASC');
 					}
 				?>
 
@@ -39,7 +39,7 @@
 
 					<ul>
 						<?php while($a = $patients->fetch()) { ?>
-							<li><?= strtoupper($a['nom']) ?> - <?= $a['prenom'] ?></li> <!-- la méthode strtoupper retourne une chaîne de caractère en majuscule -->
+							<li><a href="fiche_patient.php?id=" <?php echo $a['code'] ?> "><?= strtoupper($a['nom']) ?> <?= $a['prenom'] ?> <?= $a['code'] ?></a></li> <!-- la méthode strtoupper retourne une chaîne de caractère en majuscule -->
 						<?php } ?>
 					</ul>
 				<?php } else { ?>
