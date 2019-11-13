@@ -46,16 +46,16 @@ $patients = $bdd->query('SELECT nom, prenom FROM patient ORDER BY nom, prenom AS
 
 	<!-- Liste déroulante motifs admission -->
 
-	<label for=" ">Nom du champ </label>
+	<label for=" ">Motifs d'admission : </label>
 	<select name=" "  id=" " required>
-		<?php $reponse = $bdd->query('SELECT nom FROM patient ORDER BY nom ASC');?>
+		<?php $reponse = $bdd->query('SELECT libelle FROM motif ORDER BY libelle ASC');?>
 		<option select>Indifférent</option>
 		<?php 
 		while ($donnees = $reponse->fetch())
 		{
 			?>
-			<option value="<?php echo $donnees['nom']; ?>"> 
-				<?php echo $donnees['nom']; ?>
+			<option value="<?php echo $donnees['libelle']; ?>"> 
+				<?php echo $donnees['libelle']; ?>
 			</option>
 		<?php } ?>
 	</select>
@@ -64,16 +64,16 @@ $patients = $bdd->query('SELECT nom, prenom FROM patient ORDER BY nom, prenom AS
 
 	<!-- Liste déroulante nom pays -->
 
-	<label for=" ">Nom du champ </label>
+	<label for=" ">Noms de pays : </label>
 	<select name=" "  id=" " required>
-		<?php $reponse = $bdd->query('SELECT nom FROM patient ORDER BY nom ASC');?>
+		<?php $reponse = $bdd->query('SELECT libelle FROM pays ORDER BY libelle ASC');?>
 		<option select>Indifférent</option>
 		<?php 
 		while ($donnees = $reponse->fetch())
 		{
 			?>
-			<option value="<?php echo $donnees['nom']; ?>"> 
-				<?php echo $donnees['nom']; ?>
+			<option value="<?php echo $donnees['libelle']; ?>"> 
+				<?php echo $donnees['libelle']; ?>
 			</option>
 		<?php } ?>
 	</select>
