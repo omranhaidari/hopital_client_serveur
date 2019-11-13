@@ -1,68 +1,68 @@
 body {
     background: url('../images/background.jpg') no-repeat fixed center center;
     background-size: cover;
-	margin:30px;
-	font-family: Montserrat;
+    margin:30px;
+    font-family: Montserrat;
 }
 
 #gauche, #droite{
-	width:100%;
+    width:100%;
 }
 
 #cellule{
-	margin-bottom: 30px;
-	padding: 20px;
-	background-color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
     border-top: 10px solid #ff656c;
 }
 
 table{
     border-collapse: collapse;
-	margin: auto;
+    margin: auto;
 }
 
 td, th{
-	padding:5px;
+    padding:5px;
     border: 1px solid black;
-	text-align: center;
+    text-align: center;
 }
 
 th{
-	background-color: rgba(255, 101, 108, 0.6);
+    background-color: rgba(255, 101, 108, 0.6);
 }
 
 td{
-	background-color: rgba(150, 150, 150, 0.3);
+    background-color: rgba(150, 150, 150, 0.3);
 }
 
 h1,h2,h3{
-	text-align: center;
-	color: #000;
+    text-align: center;
+    color: #000;
     margin-top: 0;
     margin-bottom: 20px;
 }
 
 #droite{
-	margin-left: 30px;
-	float:right;
-	width:50%;
-	
+    margin-left: 30px;
+    float:right;
+    width:50%;
+    
 }
 
 #gauche{
-	float:left;
-	width:45%;
+    float:left;
+    width:45%;
 }
 
 footer {
-	text-align: center;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	height: 30px;
-	width: 100%;
-	
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    
 }
 
 .formulaire input,textarea,select {
@@ -79,8 +79,8 @@ footer {
 }
 
 .formulaire textarea {
-	height: 100px;
-	resize:none;
+    height: 100px;
+    resize:none;
 }
 
 
@@ -106,4 +106,63 @@ footer {
 
 .formulaire input#submit:hover {
     background: #ff7b81;
+}
+
+.boutonRecherche {
+    padding:6px 0 6px 0;
+    font:bold 13px Arial;
+    background:#f5f5f5;
+    color:#555;
+    border-radius:2px;
+    width:100px;
+    border:1px solid #ccc;
+}
+
+/* Fond du gadget de la barre de recherche */
+.recherche_p {
+  background-color: #eeeeee;   /* Couleur de fond */
+  border-style: solid;   /* Style de la bordure  */
+  border-width: 1px;   /* Epaisseur de la bordure  */
+  border-color: #dddddd;   /* Couleur de la bordure  */
+  padding: 10px 10px 10px 10px;   /* Espace entre les bords et le contenu : haut droite bas gauche  */
+}
+
+/* Champ de saisie */
+#searchthis #search {
+  background-color: #ffffff;   /* Couleur de fond */
+  border-style: solid;   /* Style de la bordure  */
+  border-width: 1px;   /* Epaisseur de la bordure  */
+  border-color: #dddddd;   /* Couleur de la bordure  */
+  padding: 5px 10px 5px 10px;   /* Espace entre les bords et le contenu : haut droite bas gauche  */
+  width: 98.5%;   /* Permet d'ajuster la largeur du champ de saisie à 100% */
+  box-sizing: border-box;   /* Important */
+  font-family: Lato;   /* Police du texte */
+  font-size: 12px;   /* Taille de la police du texte */
+  font-weight: normal;   /* Graisse du texte : normal = normal ; bold = gras */
+  letter-spacing: 1px;   /* Espacement des caractères */
+}
+
+/* Bouton valider */
+#searchthis #search-btn {
+  background-color: #E8B960;   /* Couleur de fond */
+  border-style: solid;   /* Style de la bordure  */
+  border-width: 1px;   /* Epaisseur de la bordure  */
+  border-color: #E8B960;   /* Couleur de la bordure  */
+  padding: 5px 10px 5px 10px;   /* Espace entre les bords et le contenu : haut droite bas gauche  */
+  width: 98.5%;   /* Permet d'ajuster la largeur du champ de saisie à 100% */
+  box-sizing: border-box;   /* Important */
+  font-family: PT sans;   /* Police du texte */
+  font-size: 13px;   /* Taille de la police du texte */
+  font-weight: normal;   /* Graisse du texte : normal = normal ; bold = gras */
+  letter-spacing: 2px;   /* Espacement des caractères */
+  margin: 10px 0 0 0;   /* Espace autour du bouton : haut droite bas gauche  */
+  text-transform: uppercase;   /* Transforme le texte en majuscules */
+  color: #ffffff;   /* Couleur du texte */
+}
+
+/* Bouton valider quand survolé par la souris */
+#searchthis #search-btn:hover {
+  background-color: #ffffff;   /* Couleur de fond */
+  color: #E8B960;   /* Couleur du texte */
+  cursor: pointer;   /* Apparence du curseur comme pour un lien */
 }
