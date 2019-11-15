@@ -8,13 +8,17 @@ if (mysqli_connect_errno()){
 
 $SelectAllMotifs = mysqli_query($connexion, "SELECT libelle FROM motif ORDER BY libelle ASC");
 $SelectAllPays = mysqli_query($connexion, "SELECT libelle FROM pays ORDER BY libelle ASC");
-$requete = "SELECT patient.code, patient.nom, patient.prenom FROM patient, pays, motif WHERE patient.code_pays = pays.code AND patient.code_motif = motif.code ";
+$requete = "SELECT DISTINCT patient.code, patient.nom, patient.prenom FROM patient, pays, motif WHERE patient.code_pays = pays.code AND patient.code_motif = motif.code ";
 
 if(isset($_POST['rechercher'])) {
-	
+
 	$nomPatient = utf8_decode($_POST['nomPatient']);
-	if($nomPatient != ""){
-		$requete = $requete."AND patient.nom LIKE '%".$nomPatient."%' OR prenom LIKE '%".$nomPatient."%'";
+	$nomPatient = htmlspecialchars($nomPatient); // pour sécuriser le formulaire contre les intrusions html
+	$nomPatient = trim($nomPatient); // pour supprimer les espaces dans la requête de l'internaute
+	$nomPatient = strip_tags($nomPatient); // pour supprimer les balises html dans la requête
+
+	if(isset($nomPatient)  && !empty($nomPatient)){
+		$requete = $requete."AND patient.nom LIKE '%".$nomPatient."%'";
 	}
 	
 	$motifAdmission = utf8_decode($_POST['motifAdmission']);
@@ -30,7 +34,7 @@ if(isset($_POST['rechercher'])) {
 	$dateDebut = utf8_decode($_POST['dateDebut']);
 	$dateFin = utf8_decode($_POST['dateFin']);
 	if($dateDebut != "vide" OR $dateFin != "vide"){
-		$requete = $requete."AND date_naissance BETWEEN '".$dateDebut."' AND '".$dateFin."' ";
+		$requete = $requete."AND patient.date_naissance BETWEEN '".$dateDebut."' AND '".$dateFin."' ";
 	}
 	
 	$resultat = mysqli_query($connexion,$requete."ORDER BY patient.nom, patient.prenom;");
@@ -50,7 +54,7 @@ echo'
 
 	<body>
 		<div id="gauche">
-			<div id="cellule">
+			<div id="celluleGauche">
 				<h2> Rechercher un patient </h2>
 					
 				<form action="index.php" method="post" class="formulaire">
@@ -62,7 +66,7 @@ echo'
 						
 						<input type="text" name="nomPatient" id="nomPatient" placeholder="ex : DUPONT"/></br>
 						
-						<h4>Motifs d&apos;admission :</h4>
+						<h4>Motif d&apos;admission :</h4>
 					
 						<select name="motifAdmission" id="motifAdmission">
 							<option selected="selected" value="vide">Indifférent</option>';
@@ -73,7 +77,7 @@ echo'
 						echo'
 						</select>
 						
-						<h4>Noms de pays :</h4>
+						<h4>Pays d&apos;origine :</h4>
 						
 						<select name="nomPays" id="nomPays">
 							<option selected="selected" value="vide">Indifférent</option>';
@@ -84,12 +88,12 @@ echo'
 						echo'
 						</select>
 						
-						<h4>Intervallle de date de naissance :</h4>
+						<h4>Intervalle des dates de naissance :</h4>
 						
 						<div id="gauche">
 							<select name="dateDebut" id="dateDebut">
 								<option selected="selected" value="vide">Indifférent</option>';
-								for($i=date('Y'); $i>=date('Y') - 119; $i--)
+								for($i = date('Y'); $i >= date('Y') - (date('Y') - 1900); $i--) // pour être sûr que c'est jusqu'à l'an 1900
 								{
 									echo'<option value="'.$i.'">'.$i.'</option>';
 								}
@@ -100,7 +104,7 @@ echo'
 						<div id="droite">
 							<select name="dateFin" id="dateFin">
 								<option selected="selected" value="vide">Indifférent</option>';
-								for($i=date('Y'); $i>=date('Y') - 119; $i--)
+								for($i = date('Y'); $i >= date('Y') - (date('Y') - 1900); $i--) // pour être sûr que c'est jusqu'à l'an 1900
 								{
 									echo'<option value="'.$i.'">'.$i.'</option>';
 								}
@@ -116,7 +120,7 @@ echo'
 		</div>
 		
 		<div id="droite">
-			<div id="cellule">
+			<div id="celluleDroite">
 				<h2>Résultats de recherche</h2>';
 				
 					if(isset($_POST['rechercher'])){
@@ -133,31 +137,31 @@ echo'
 			
 			if(isset($_GET['param'])) {
 			echo'
-			<div id="cellule">
-				<h2>Fiche détaillée</h2>
+			<div id="celluleDroite">
+				<h2>Fiche détaillée du patient</h2>
 				
 				<table>
 					<tr>
 						<th>Nom</th>
 						<th>Prénom</th>
 						<th>Sexe</th>
-						<th>Date naissance</th>
+						<th>Date de naissance</th>
 						<th>Numéro Sécu</th>
 						<th>Code pays</th>
-						<th>Date 1ère entrée</th>
+						<th>Date première entrée</th>
 						<th>Motif</th>
 					</tr>';
 					while($dataR4 = mysqli_fetch_array($SelectProfil))
 					{
 						echo'
 						<tr>
-							<td>'.utf8_encode($dataR4["nom"]).'</td>
+							<td>'.strtoupper(utf8_encode($dataR4["nom"])).'</td> <!-- pour être sûr que le nom est en majuscule -->
 							<td>'.utf8_encode($dataR4["prenom"]).'</td>
 							<td>'.utf8_encode($dataR4["sexe"]).'</td>
-							<td>'.utf8_encode($dataR4["date_naissance"]).'</td>
+							<td>'.date("d/m/y", strtotime(utf8_encode($dataR4["date_naissance"]))).'</td> <!-- changementant du format de la date -->
 							<td>'.utf8_encode($dataR4["num_secu"]).'</td>
 							<td>'.utf8_encode($dataR4["code_pays"]).'</td>
-							<td>'.utf8_encode($dataR4["date_prem_entree"]).'</td>
+							<td>'.date("d/m/y", strtotime(utf8_encode($dataR4["date_prem_entree"]))).'</td> <!-- changementant du format de la date -->
 							<td>'.utf8_encode($dataR4["libelle"]).'</td>
 						</tr>';
 					}

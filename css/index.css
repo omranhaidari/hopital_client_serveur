@@ -9,12 +9,22 @@ body {
 	width:100%;
 }
 
-#cellule{
+#celluleGauche{
 	margin-bottom: 30px;
 	padding: 20px;
 	background-color: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
     border-top: 10px solid #ff656c;
+}
+
+#celluleDroite{
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    border-top: 10px solid #ff656c;
+    width: 700px;
+    margin-left: -120px;
 }
 
 table{
@@ -50,10 +60,22 @@ h4{
 	margin-bottom: 10px;
 }
 
+li{
+    list-style-type: none;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: #ff656c; 
+}
+
 #droite{
-	margin-left: 30px;
 	float:right;
-	width:50%;
+	width:45%;
 	
 }
 
