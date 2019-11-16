@@ -4,7 +4,7 @@
 	$connexion = mysqli_connect("localhost", "user1", "hcetylop","hopital_php");
 	// Message d'erreur en cas d'erreur de connexion à la base de données.
 	if (mysqli_connect_errno()) {
-		echo 'Failed to connect to MySQL: ' . mysqli_connect_error();
+		echo 'Failed to connect to MySQL: ' . mysqli_connect_error(); // utiliser la méthode die() ?
 	}
 
  	// Récupération des motifs d'admission.
@@ -40,11 +40,12 @@
 		$dateDebut = utf8_decode($_POST['dateDebut']);
 		$dateFin = utf8_decode($_POST['dateFin']);
 		if($dateDebut != "vide" OR $dateFin != "vide") {
-			$requete = $requete."AND patient.date_naissance BETWEEN '".$dateDebut."' AND '".$dateFin."' ";
+			// Recherche des patients correspondants entre le 1er janvier de la date de début et le 31 décembre de la date de fin.
+			$requete = $requete."AND patient.date_naissance BETWEEN '".$dateDebut."-01-01' AND '".$dateFin."-12-31' ";
 		}
 		
 		// Récupération des noms, prénoms et codes des patients correspondants, par ordre alphabétique des noms puis par ordre alphabétique des prénoms (si le nom est identique).
-		$resultat = mysqli_query($connexion,$requete."ORDER BY patient.nom, patient.prenom;");
+		$resultat = mysqli_query($connexion, $requete."ORDER BY patient.nom, patient.prenom;");
 	}
 
 	echo'

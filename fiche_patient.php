@@ -30,10 +30,10 @@
 						<td>'.strtoupper(utf8_encode($dataR4["nom"])).'</td> <!-- pour être sûr que le nom est en majuscule -->
 						<td>'.utf8_encode($dataR4["prenom"]).'</td>
 						<td>'.utf8_encode($dataR4["sexe"]).'</td>
-						<td>'.date("d/m/y", strtotime(utf8_encode($dataR4["date_naissance"]))).'</td> <!-- changementant du format de la date -->
+						<td>'.date("d/m/Y", strtotime(utf8_encode($dataR4["date_naissance"]))).'</td> <!-- changementant du format de la date -->
 						<td>'.utf8_encode($dataR4["num_secu"]).'</td>
 						<td>'.utf8_encode($dataR4["code_pays"]).'</td>
-						<td>'.date("d/m/y", strtotime(utf8_encode($dataR4["date_prem_entree"]))).'</td> <!-- changementant du format de la date -->
+						<td>'.date("d/m/Y", strtotime(utf8_encode($dataR4["date_prem_entree"]))).'</td> <!-- changementant du format de la date -->
 						<td>'.utf8_encode($dataR4["libelle"]).'</td>
 					</tr>';
 				}
