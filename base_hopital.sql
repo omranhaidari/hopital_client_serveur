@@ -1,4 +1,3 @@
-
 --
 -- Base de données :  `hopital_php`
 --
@@ -16,6 +15,27 @@ GRANT ALL PRIVILEGES ON *.* TO 'user1'@'localhost' WITH GRANT OPTION;
 
 USE hopital_php;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `motif`
+--
+
+DROP TABLE IF EXISTS `motif`;
+CREATE TABLE IF NOT EXISTS `motif` (
+  `code` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(250) NOT NULL,
+  PRIMARY KEY (`code`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `motif`
+--
+
+INSERT INTO `motif` (`code`, `libelle`) VALUES
+(1, 'Consultation libre'),
+(2, 'Urgence'),
+(3, 'Prescription');
 
 -- --------------------------------------------------------
 
@@ -30,12 +50,12 @@ CREATE TABLE IF NOT EXISTS `patient` (
   `prenom` varchar(250) NOT NULL,
   `sexe` varchar(250) NOT NULL,
   `date_naissance` date NOT NULL,
-  `num_secu` varchar(250),
+  `num_secu` varchar(250) DEFAULT NULL,
   `code_pays` varchar(250) NOT NULL,
   `date_prem_entree` date NOT NULL,
   `code_motif` int(11) NOT NULL,
   PRIMARY KEY (`code`)
-);
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `patient`
@@ -51,29 +71,6 @@ INSERT INTO `patient` (`code`, `nom`, `prenom`, `sexe`, `date_naissance`, `num_s
 -- --------------------------------------------------------
 
 --
--- Structure de la table `motif`
---
-
-DROP TABLE IF EXISTS `motif`;
-CREATE TABLE IF NOT EXISTS `motif` (
-  `code` int(11) NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(250) NOT NULL,
-  PRIMARY KEY (`code`),
-  FOREIGN KEY (`code`) REFERENCES `patient` (`code_motif`)
-);
-
---
--- Déchargement des données de la table `motif`
---
-
-INSERT INTO `motif` (`code`, `libelle`) VALUES
-(1, 'Consultation libre'),
-(2, 'Urgence'),
-(3, 'Prescription');
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `pays`
 --
 
@@ -81,9 +78,8 @@ DROP TABLE IF EXISTS `pays`;
 CREATE TABLE IF NOT EXISTS `pays` (
   `code` varchar(250) NOT NULL,
   `libelle` varchar(250) NOT NULL,
-  PRIMARY KEY (`code`),
-  FOREIGN KEY (`code`) REFERENCES `patient` (`code_pays`)
-);
+  PRIMARY KEY (`code`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `pays`
@@ -106,9 +102,8 @@ DROP TABLE IF EXISTS `sexe`;
 CREATE TABLE IF NOT EXISTS `sexe` (
   `code` varchar(250) NOT NULL,
   `libelle` varchar(250) NOT NULL,
-  PRIMARY KEY (`code`),
-  FOREIGN KEY (`code`) REFERENCES `patient` (`sexe`)
-);
+  PRIMARY KEY (`code`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `sexe`
@@ -117,6 +112,4 @@ CREATE TABLE IF NOT EXISTS `sexe` (
 INSERT INTO `sexe` (`code`, `libelle`) VALUES
 ('F', 'Féminin'),
 ('M', 'Masculin');
-
-
 COMMIT;
