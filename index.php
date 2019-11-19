@@ -1,9 +1,19 @@
 <?php
 
+	
+	header('content-type: text/html; charset=utf-8');
+
+	echo'
+	<head>
+		<meta charset="utf-8" />
+		<link href="css/index.css" rel="stylesheet">
+		<title>Hôpital Didier LEFEBVRE</title>
+		<h1>Hôpital Didier LEFEBVRE</h1>
+	<head>';
+
 	// include : inclut le contenu d'un autre fichier appelé, mais ne provoque pas d'erreur bloquante si le fichier appelé est indisponible (le reste du code est exécuté).
 	// include_once : pour faire l'inclusion qu'une seule fois dans le fichier.
-	include_once ('ressources_communes.php'); // fichier nécessaire qu'ici, à supprimer ?
-
+	
 	echo'
 	<html>
 		<body>
