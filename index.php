@@ -6,7 +6,7 @@
 	echo'
 	<head>
 		<meta charset="utf-8" />
-		<link href="css/index.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
 		<title>Hôpital Didier LEFEBVRE</title>
 		<h1>Hôpital Didier LEFEBVRE</h1>
 	<head>';
