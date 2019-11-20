@@ -2,7 +2,7 @@
 
 	if(isset($_GET['param'])) {
 		// Récupération des données du patient sélectionné.
-		$SelectProfil = mysqli_query($connexion, "SELECT patient.nom, patient.prenom, patient.sexe, patient.date_naissance, patient.num_secu, patient.code_pays, patient.date_prem_entree, motif.libelle FROM patient, motif WHERE patient.code_motif = motif.code AND patient.code = ".$_GET['param']);
+		$selectProfil = mysqli_query($connexion, "SELECT patient.nom, patient.prenom, patient.sexe, patient.date_naissance, patient.num_secu, patient.code_pays, patient.date_prem_entree, motif.libelle FROM patient, motif WHERE patient.code_motif = motif.code AND patient.code = ".$_GET['param']);
 
 		echo' 
 		<div id="celluleDroite">
@@ -23,8 +23,31 @@
 
 				// Possibilité d'affichage en liste : Nom : x, ... ?
 				// Affichage de la fiche détaillée du patient sélectionné, dont l'identifiant a été passé en paramètre (par URL), sous forme d'un tableau.
-				while($dataR4 = mysqli_fetch_array($SelectProfil))
+				while($dataR4 = mysqli_fetch_array($selectProfil))
 				{
+					if($dataR4["sexe"] == "M") {
+						echo'
+						<center>
+							<img id=inconnu src="images/inconnu.jpeg">
+							<br>
+							<br>'
+							.$dataR4["nom"].' '.$dataR4["prenom"].'
+						</center>
+						<br>';
+					}
+
+					if($dataR4["sexe"] == "F") {
+						echo'
+						<center>
+							<img id=inconnu src="images/inconnue.png">
+							<br>
+							<br>'
+							.$dataR4["nom"].' '.$dataR4["prenom"].'
+						</center>
+						<br>';
+					}
+
+
 					echo'
 					<tr>
 						<td>'.strtoupper(utf8_encode($dataR4["nom"])).'</td> <!-- pour être sûr que le nom est en majuscule -->

@@ -38,6 +38,10 @@ body {
     margin-left: -120px;
 }
 
+#inconnu {
+    width: 10rem;
+}
+
 table {
     border-collapse: collapse;
 	margin: auto;
