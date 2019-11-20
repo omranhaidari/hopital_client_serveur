@@ -50,14 +50,14 @@
 
 					echo'
 					<tr>
-						<td>'.strtoupper(utf8_encode($dataR4["nom"])).'</td> <!-- pour être sûr que le nom est en majuscule -->
-						<td>'.utf8_encode($dataR4["prenom"]).'</td>
-						<td>'.utf8_encode($dataR4["sexe"]).'</td>
-						<td>'.date("d/m/Y", strtotime(utf8_encode($dataR4["date_naissance"]))).'</td> <!-- changement du format de la date -->
-						<td>'.utf8_encode($dataR4["num_secu"]).'</td>
-						<td>'.utf8_encode($dataR4["code_pays"]).'</td>
-						<td>'.date("d/m/Y", strtotime(utf8_encode($dataR4["date_prem_entree"]))).'</td> <!-- changement du format de la date -->
-						<td>'.utf8_encode($dataR4["libelle"]).'</td>
+						<td>'.strtoupper($dataR4["nom"]).'</td> <!-- pour être sûr que le nom est en majuscule -->
+						<td>'.$dataR4["prenom"].'</td>
+						<td>'.$dataR4["sexe"].'</td>
+						<td>'.date("d/m/Y", strtotime($dataR4["date_naissance"])).'</td> <!-- changement du format de la date -->
+						<td>'.$dataR4["num_secu"].'</td>
+						<td>'.$dataR4["code_pays"].'</td>
+						<td>'.date("d/m/Y", strtotime($dataR4["date_prem_entree"])).'</td> <!-- changement du format de la date -->
+						<td>'.$dataR4["libelle"].'</td>
 					</tr>';
 				}
 				
