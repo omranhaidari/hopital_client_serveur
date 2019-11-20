@@ -68,7 +68,7 @@
 				<option selected="selected" value="vide">Indifférent</option>';
 				while($dataR1 = mysqli_fetch_array($SelectAllMotifs))
 				{
-					echo'<option value="'.$dataR1["libelle"].'">'.$dataR1["libelle"].'</option>';
+					echo'<option value="'.utf8_encode($dataR1["libelle"]).'">'.utf8_encode($dataR1["libelle"]).'</option>';
 				}
 			echo'
 			</select>';
@@ -80,7 +80,7 @@
 				<option selected="selected" value="vide">Indifférent</option>';
 				while($dataR2 = mysqli_fetch_array($SelectAllPays))
 				{
-					echo'<option value="'.$dataR2["libelle"].'">'.$dataR2["libelle"].'</option>';
+					echo'<option value="'.utf8_encode($dataR2["libelle"]).'">'.utf8_encode($dataR2["libelle"]).'</option>';
 				}
 			echo'
 			</select>';
