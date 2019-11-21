@@ -18,6 +18,27 @@ USE hopital_php;
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `document`
+--
+
+DROP TABLE IF EXISTS `document`;
+CREATE TABLE IF NOT EXISTS `document` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom_fichier` varchar(250) NOT NULL,
+  `clef` varchar(250) NOT NULL,
+  `nom_patient` varchar(250) NOT NULL,
+  `prenom_patient` varchar(250) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `format` varchar(100) NOT NULL,
+  `date` date NOT NULL,
+  `contenu` text NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `clef` (`clef`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `motif`
 --
 
