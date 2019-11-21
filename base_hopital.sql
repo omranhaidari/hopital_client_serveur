@@ -24,17 +24,16 @@ USE hopital_php;
 DROP TABLE IF EXISTS `document`;
 CREATE TABLE IF NOT EXISTS `document` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code_patient` int(11) NOT NULL,
   `nom_fichier` varchar(250) NOT NULL,
   `clef` varchar(250) NOT NULL,
-  `nom_patient` varchar(250) NOT NULL,
-  `prenom_patient` varchar(250) NOT NULL,
   `type` varchar(100) NOT NULL,
   `format` varchar(100) NOT NULL,
   `date` date NOT NULL,
-  `contenu` text NOT NULL,
+  `contenu` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `clef` (`clef`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
