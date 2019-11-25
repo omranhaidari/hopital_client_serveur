@@ -2,7 +2,7 @@
 
 if(isset($_GET['param'])) {
 	// Récupération des données du patient sélectionné.
-	$selectProfil = mysqli_query($connexion, "SELECT patient.nom, patient.prenom, patient.sexe, patient.date_naissance, patient.num_secu, patient.code_pays, patient.date_prem_entree, motif.libelle FROM patient, motif WHERE patient.code_motif = motif.code AND patient.code = ".$_GET['param']);
+	$selectProfil = mysqli_query($connexion, "SELECT patient.nom, patient.prenom, patient.sexe, patient.date_naissance, patient.num_secu, pays.libelle AS libelle_pays, patient.date_prem_entree, motif.libelle AS libelle_motif FROM patient, motif, pays WHERE patient.code_pays = pays.code AND patient.code_motif = motif.code AND patient.code = ".$_GET['param']);
 	$selectDocuments = mysqli_query($connexion, "SELECT nom_fichier, type, format, date FROM patient, document WHERE patient.code = document.code_patient AND patient.code = ".$_GET['param']);
 
 	echo' 
@@ -17,7 +17,7 @@ if(isset($_GET['param'])) {
 				<th>Sexe</th>
 				<th>Date de naissance</th>
 				<th>Numéro Sécu</th>
-				<th>Code pays</th>
+				<th>Pays</th>
 				<th>Date première entrée</th>
 				<th>Motif</th>
 			</tr>';
@@ -32,7 +32,7 @@ if(isset($_GET['param'])) {
 						<img id=inconnu src="images/inconnu.jpeg">
 						<br>
 						<br>'
-						.$dataR4["nom"].' '.$dataR4["prenom"].'
+						.utf8_encode($dataR4["nom"]).' '.utf8_encode($dataR4["prenom"]).'
 					</center>
 					<br>';
 				}
@@ -43,7 +43,7 @@ if(isset($_GET['param'])) {
 						<img id=inconnu src="images/inconnue.png">
 						<br>
 						<br>'
-						.$dataR4["nom"].' '.$dataR4["prenom"].'
+						.utf8_encode($dataR4["nom"]).' '.utf8_encode($dataR4["prenom"]).'
 					</center>
 					<br>';
 				}
@@ -56,9 +56,9 @@ if(isset($_GET['param'])) {
 					<td>'.utf8_encode($dataR4["sexe"]).'</td>
 					<td>'.date("d/m/Y", strtotime(utf8_encode($dataR4["date_naissance"]))).'</td> <!-- changement du format de la date -->
 					<td>'.utf8_encode($dataR4["num_secu"]).'</td>
-					<td>'.utf8_encode($dataR4["code_pays"]).'</td>
+					<td>'.utf8_encode($dataR4["libelle_pays"]).'</td>
 					<td>'.date("d/m/Y", strtotime(utf8_encode($dataR4["date_prem_entree"]))).'</td> <!-- changement du format de la date -->
-					<td>'.utf8_encode($dataR4["libelle"]).'</td>
+					<td>'.utf8_encode($dataR4["libelle_motif"]).'</td>
 				</tr>';
 			}
 			

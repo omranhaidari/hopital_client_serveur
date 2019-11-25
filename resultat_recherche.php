@@ -7,8 +7,11 @@
 
 			<ul>';
 
-				if(mysqli_num_rows($resultat) == 0) {        
-					echo "Aucun résultat trouvé pour : $nomPatient !";
+				if(mysqli_num_rows($resultat) == 0) {  
+					if(!empty($nomPatient))
+						echo "Aucun résultat trouvé pour : $nomPatient !";
+					else
+						echo "Aucun résultat trouvé !";
          		} else {
 				// Pour chaque résultat récupéré par la requête, il y a l'affichage des noms et prénoms des patients correspondants à la recherche, sous forme de liste et de lien hypertexte (avec le code/identifiant du patient en paramètre, par l'URL).
 					while($dataR3 = mysqli_fetch_array($resultat))
