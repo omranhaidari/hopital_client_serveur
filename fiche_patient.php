@@ -1,7 +1,7 @@
 <?php
 
 if(isset($_GET['param'])) {
-	// R√©cup√©ration des donnÈes du patient sÈlectionnÈ.
+	// R√©cup√©ration des donn√©es du patient s√©lectionn√©.
 	$selectProfil = mysqli_query($connexion, "SELECT patient.nom, patient.prenom, patient.sexe, patient.date_naissance, patient.num_secu, patient.code_pays, patient.date_prem_entree, motif.libelle FROM patient, motif WHERE patient.code_motif = motif.code AND patient.code = ".$_GET['param']);
 	$selectDocuments = mysqli_query($connexion, "SELECT nom_fichier, type, format, date FROM patient, document WHERE patient.code = document.code_patient AND patient.code = ".$_GET['param']);
 
@@ -13,16 +13,17 @@ if(isset($_GET['param'])) {
 		
 			<tr>
 				<th>Nom</th>
-				<th>PrÈnom</th>
+				<th>Pr√©nom</th>
 				<th>Sexe</th>
 				<th>Date de naissance</th>
-				<th>Num√©ro SÈcu</th>
+				<th>Num√©ro S√©cu</th>
 				<th>Code pays</th>
 				<th>Date premi√®re entr√©e</th>
 				<th>Motif</th>
 			</tr>';
 
-			// Affichage de la fiche d√©taillÈe du patient sÈlectionnÈ, dont l'identifiant a ÈtÈ passÈ en paramËtre (par URL), sous forme d'un tableau.
+			// Possibilit√© d'affichage en liste : Nom : x, ... ?
+			// Affichage de la fiche d√©taill√©e du patient s√©lectionn√©, dont l'identifiant a √©t√© pass√© en param√®tre (par URL), sous forme d'un tableau.
 			while($dataR4 = mysqli_fetch_array($selectProfil))
 			{
 				if($dataR4["sexe"] == "M") {
@@ -50,7 +51,7 @@ if(isset($_GET['param'])) {
 
 				echo'
 				<tr>
-					<td>'.strtoupper(utf8_encode($dataR4["nom"])).'</td> <!-- pour Ítre s˚r que le nom est en majuscule -->
+					<td>'.strtoupper(utf8_encode($dataR4["nom"])).'</td> <!-- pour √™tre s√ªr que le nom est en majuscule -->
 					<td>'.utf8_encode($dataR4["prenom"]).'</td>
 					<td>'.utf8_encode($dataR4["sexe"]).'</td>
 					<td>'.date("d/m/Y", strtotime(utf8_encode($dataR4["date_naissance"]))).'</td> <!-- changement du format de la date -->
@@ -74,7 +75,7 @@ if(isset($_GET['param'])) {
 				<th>Format</th>
 				<th>Date</th>
 				<th>Visualiser</th>
-				<th>TÈlÈcharger</th>
+				<th>T√©l√©charger</th>
 				<th>Imprimer</th>
 				<th>Partager</th>
 			</tr>';
@@ -118,7 +119,7 @@ if(isset($_GET['param'])) {
    
 </select>
         <input type="submit" name="submit" value="Upload" id="submit">
-        <p><strong>Note:</strong> Seuls les formats .jpg, .jpeg, .gif, .png et .pdf sont autorisÈs jusqu\'‡ une taille maximale de 10 Mo.</p>
+        <p><strong>Note:</strong> Seuls les formats .jpg, .jpeg, .gif, .png et .pdf sont autorises jusqua une taille maximale de 10 Mo.</p>
         </fieldset>
     </form>
                 </table>
@@ -149,10 +150,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // VÈrifie le type MIME du fichier
         if(in_array($fileformat, $allowed)){
             // VÈrifie si le fichier existe avant de le tÈlÈcharger.
-            if(file_exists("C:/wamp64/www/hopital_client_serveur_avec_upload/mesDocumentsUploades/" . $_FILES["file"]["name"])){
+            if(file_exists("C:/wamp64/www/hopital_client_serveur_avec_upload/MesDocumentsUploadÈs/" . $_FILES["file"]["name"])){
                 echo $_FILES["file"]["name"] . " existe dÈj‡.";
             } else{
-                move_uploaded_file($_FILES["file"]["tmp_name"], "C:/wamp64/www/hopital_client_serveur_avec_upload/MesDocumentsUploadÈs/" . $_FILES["file"]["name"]);
+                move_uploaded_file($_FILES["file"]["tmp_name"], "C:/wamp64/www/hopital_client_serveur_avec_upload/mesDocumentsUploades/" . $_FILES["file"]["name"]);
                 //echo "Votre fichier a ete telecharge avec succes.";
                 echo'
 <div id="celluleGauche">      
