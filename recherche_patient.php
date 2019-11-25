@@ -1,5 +1,4 @@
 <?php
-	
 
 	// Connexion à la base de données.
 	$connexion = mysqli_connect("localhost", "user1", "hcetylop","hopital_php");
