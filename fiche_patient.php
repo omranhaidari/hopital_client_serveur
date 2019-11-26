@@ -165,7 +165,7 @@
 		                //move_uploaded_file($_FILES["file"]["tmp_name"], "/Applications/MAMP/htdocs/hopital_client_serveur/mesDocumentsUploades/" . $_FILES["file"]["name"]); // Mac OS
 
 		                echo'
-						<div id="celluleGauche">      
+						<div id="celluleDroite">      
 						      <h4> Votre fichier a été enregistré avec succès. </h4>
 						</div>';
 		              	// Récupération de la date actuelle 
