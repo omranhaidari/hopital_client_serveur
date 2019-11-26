@@ -23,7 +23,7 @@
 		if(in_array($fileformat, $allowed)) {
 
 			// Vérification si le fichier existe avant de l'enregistrer.
-			if(file_exists("C:/wamp64/www/hopital_client_serveur_avec_upload/mesDocumentsUploades/" . $_FILES["file"]["name"])) { // Windows
+			if(file_exists("C:/wamp64/www/hopital_client_serveur/mesDocumentsUploades/" . $_FILES["file"]["name"])) { // Windows
 			//if(file_exists("/Applications/MAMP/htdocs/hopital_client_serveur/mesDocumentsUploades/" . $_FILES["file"]["name"])) { // Mac OS
 				echo $_FILES["file"]["name"] . " existe déjà.";
 			} else {

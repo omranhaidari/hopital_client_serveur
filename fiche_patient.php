@@ -132,14 +132,6 @@
 		        </fieldset>
 	    	</form>
 		</div>';
-
-
-
-		// Vérification si le formulaire a été soumis
-		if($_SERVER["REQUEST_METHOD"] == "POST") {
-		    
-
-		}
 	   
 	}
 
