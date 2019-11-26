@@ -15,6 +15,8 @@ GRANT ALL PRIVILEGES ON *.* TO 'user1'@'localhost' WITH GRANT OPTION;
 
 USE hopital_php;
 
+SET GLOBAL max_allowed_packet=10485760;
+
 -- --------------------------------------------------------
 
 --
