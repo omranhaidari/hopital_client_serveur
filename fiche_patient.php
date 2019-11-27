@@ -94,10 +94,10 @@
 						<td>'.utf8_encode($dataR5["type"]).'</td>
 						<td>'.utf8_encode($dataR5["format"]).'</td>
 						<td>'.date("d/m/Y", strtotime(utf8_encode($dataR5["date"]))).'</td>
-						<td><a href="http://google.com"><img src="images/preview-file.png" title="Prévisualiser le document" alt="preview-file" height="30px" width="30px"/></a></td>
-						<td><a href="http://google.com"><img src="images/download-file.jpg" title="Télécharger le document" alt="download-file" height="25px" width="25px"/></a></td>
-						<td><a href="http://google.com"><img src="images/print-file.png" title="Imprimer le document" alt="print-file" height="30px" width="30px"/></a></td>
-						<td><a href="http://google.com"><img src="images/share-file.png" title="Partager le document par email" alt="share-file" height="30px" width="30px"/></a></td>
+						<td><a href="mesDocumentsUploades/'.utf8_encode($dataR5["nom_fichier"]).'" target="_blank"><img src="images/preview-file.png" title="Prévisualiser le document" alt="preview-file" height="30px" width="30px"/></a></td>
+						<td><a href="mesDocumentsUploades/'.utf8_encode($dataR5["nom_fichier"]).'" download="'.utf8_encode($dataR5["nom_fichier"]).'"><img src="images/download-file.jpg" title="Télécharger le document" alt="download-file" height="25px" width="25px"/></a></td>
+						<td><a href="print.php?url='.utf8_encode($dataR5["nom_fichier"]).'" target="_blank"><img src="images/print-file.png" title="Imprimer le document" alt="print-file" height="30px" width="30px"/></a></td>
+						<td><a href="share.php?url='.utf8_encode($dataR5["nom_fichier"]).'" target="_blank"><img src="images/share-file.png" title="Partager le document par email" alt="share-file" height="30px" width="30px"/></a></td>
 					</tr>';
 				}
 

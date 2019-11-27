@@ -4,7 +4,7 @@
 
 	echo'
 	<head>
-		<meta charset="utf-8" />
+		<meta charset="utf-8"/>
 		<link href="css/style.css" rel="stylesheet">
 		<title>Hôpital Didier LEFEBVRE</title>
 		<h1>Hôpital Didier LEFEBVRE</h1>
@@ -33,7 +33,5 @@
 
 		</body>
 	</html>';
-
-	mysqli_close($connexion);
 
 ?>
