@@ -1,28 +1,28 @@
 <?php
 
 	if(isset($_GET['param'])) {
-		// RÈcupÈration des donnÈes du patient sÈlectionnÈ.
+		// R√©cup√©ration des donn√©es du patient s√©lectionn√©.
 		$selectProfil = mysqli_query($connexion, "SELECT patient.nom, patient.prenom, patient.sexe, patient.date_naissance, patient.num_secu, pays.libelle AS libelle_pays, patient.date_prem_entree, motif.libelle AS libelle_motif FROM patient, motif, pays WHERE patient.code_pays = pays.code AND patient.code_motif = motif.code AND patient.code = ".$_GET['param']);
 		$selectDocuments = mysqli_query($connexion, "SELECT nom_fichier, type, format, date FROM patient, document WHERE patient.code = document.code_patient AND patient.code = ".$_GET['param']);
 
 		echo' 
 		<div id="celluleDroite">
-			<h2>Fiche dÈtaillÈe du patient</h2>
+			<h2>Fiche d√©taill√©e du patient</h2>
 			
 			<table>
 			
 				<tr>
 					<th>Nom</th>
-					<th>PrÈnom</th>
+					<th>Pr√©nom</th>
 					<th>Sexe</th>
 					<th>Date de naissance</th>
-					<th>NumÈro SÈcu</th>
+					<th>Num√©ro S√©cu</th>
 					<th>Pays</th>
-					<th>Date premiËre entrÈe</th>
+					<th>Date premi√®re entr√©e</th>
 					<th>Motif</th>
 				</tr>';
 
-				// Affichage de la fiche dÈtaillÈe du patient sÈlectionnÈ, dont l'identifiant a ÈtÈ passÈ en paramËtre (par URL), sous forme d'un tableau.
+				// Affichage de la fiche d√©taill√©e du patient s√©lectionn√©, dont l'identifiant a √©t√© pass√© en param√®tre (par URL), sous forme d'un tableau.
 				while($dataR4 = mysqli_fetch_array($selectProfil))
 				{
 					if($dataR4["sexe"] == "M") {
@@ -50,7 +50,7 @@
 
 					echo'
 					<tr>
-						<td>'.strtoupper(utf8_encode($dataR4["nom"])).'</td> <!-- pour Ítre s˚r que le nom est en majuscule -->
+						<td>'.strtoupper(utf8_encode($dataR4["nom"])).'</td> <!-- pour √™tre s√ªr que le nom est en majuscule -->
 						<td>'.utf8_encode($dataR4["prenom"]).'</td>
 						<td>'.utf8_encode($dataR4["sexe"]).'</td>
 						<td>'.date("d/m/Y", strtotime(utf8_encode($dataR4["date_naissance"]))).'</td> <!-- changement du format de la date -->
@@ -77,7 +77,7 @@
 					<th>Format</th>
 					<th>Date</th>
 					<th>Visualiser</th>
-					<th>TÈlÈcharger</th>
+					<th>T√©l√©charger</th>
 					<th>Imprimer</th>
 					<th>Partager</th>
 				</tr>';
@@ -94,8 +94,8 @@
 						<td>'.utf8_encode($dataR5["type"]).'</td>
 						<td>'.utf8_encode($dataR5["format"]).'</td>
 						<td>'.date("d/m/Y", strtotime(utf8_encode($dataR5["date"]))).'</td>
-						<td><a href="mesDocumentsUploades/'.utf8_encode($dataR5["nom_fichier"]).'" target="_blank"><img src="images/preview-file.png" title="PrÈvisualiser le document" alt="preview-file" height="30px" width="30px"/></a></td>
-						<td><a href="mesDocumentsUploades/'.utf8_encode($dataR5["nom_fichier"]).'" download="'.utf8_encode($dataR5["nom_fichier"]).'"><img src="images/download-file.jpg" title="TÈlÈcharger le document" alt="download-file" height="25px" width="25px"/></a></td>
+						<td><a href="mesDocumentsUploades/'.utf8_encode($dataR5["nom_fichier"]).'" target="_blank"><img src="images/preview-file.png" title="Pr√©visualiser le document" alt="preview-file" height="30px" width="30px"/></a></td>
+						<td><a href="mesDocumentsUploades/'.utf8_encode($dataR5["nom_fichier"]).'" download="'.utf8_encode($dataR5["nom_fichier"]).'"><img src="images/download-file.jpg" title="T√©l√©charger le document" alt="download-file" height="25px" width="25px"/></a></td>
 						<td><a href="print.php?url='.utf8_encode($dataR5["nom_fichier"]).'" target="_blank"><img src="images/print-file.png" title="Imprimer le document" alt="print-file" height="30px" width="30px"/></a></td>
 						<td><a href="share.php?url='.utf8_encode($dataR5["nom_fichier"]).'" target="_blank"><img src="images/share-file.png" title="Partager le document par email" alt="share-file" height="30px" width="30px"/></a></td>
 					</tr>';
@@ -104,20 +104,30 @@
 			echo'
 			</table>
 		</div>';
-
-
+		
 
 		// Enregistrement des document
 	    echo'
 	    <div id="celluleDroite">
-			<h2>Enregistrer un document</h2>
+			<h2>Enregistrer un document</h2>';
+			
+			// Si il y a eu une demande d'enregistrement de document, afficher le message d'erreur ou de succ√®s
+			if(isset($_GET['msg'])){
+				if($_GET['msg']==null){
+					echo'<h3 style="color:green">Votre fichier a √©t√© enregistr√© avec succ√®s !</h3>';
+				}else{
+					echo'<h3 style="color:red">'.$_GET['msg'].'</h3>';
+				}
+			}
+			
+			echo'
 	        <form action="upload.php" method="post" enctype="multipart/form-data" class="formulaire">
 				<fieldset>
 			        <h4>Fichier :</h4>
-			        <input type="file" name="file" id="file">
+			        <input type="file" name="file" id="file" required>
 
 					<h4>Type du document :</h4>
-					<select name="type_doc" id="type_doc" width="10p%">
+					<select name="type_doc" id="type_doc" width="10p%" required>
 						<option value="">Choisir un type de fichier</option>
 						<option value="ordonnance">Ordonnance</option>
 						<option value="radio">Radio</option>
@@ -128,7 +138,7 @@
 					<input id="param" name="param" type="hidden" value="'.$_GET['param'].'">
 
 			        <input type="submit" name="submit" value="Upload" id="submit">
-			        <p><strong>Note:</strong> Seuls les formats .jpg, .jpeg, .gif, .png et .pdf sont autorisÈs jusqu\'‡ une taille maximale de 10 Mo.</p>
+			        <p><strong>Note:</strong> Seuls les formats .jpg, .jpeg, .gif, .png et .pdf sont autoris√©s jusqu\'√† une taille maximale de 10 Mo.</p>
 		        </fieldset>
 	    	</form>
 		</div>';

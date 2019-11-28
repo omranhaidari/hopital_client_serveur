@@ -1,5 +1,7 @@
 <?php
 
+	$param=$_POST['param'];
+
 	// Vérification si le fichier a été enregistré sans erreur.
 	if(isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
 		$allowed = array("jpg" => "image/jpg", "JPG" => "image/JPG", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png","PNG" => "image/PNG", "pdf" => "application/pdf","PDF" => "application/PDF" );
@@ -9,15 +11,19 @@
 		$filesize = $_FILES["file"]["size"];       
 		$data= file_get_contents($_FILES["file"]["tmp_name"]);
 		$filetype=$_POST['type_doc'];
-		$param=$_POST['param'];
+		$msg=null;
 
 		// Vérification de l'extension du fichier
 		$ext = pathinfo($filename, PATHINFO_EXTENSION);
-		if(!array_key_exists($ext, $allowed)) { die("Erreur : Veuillez sélectionner un format de fichier valide."); }
+		if(!array_key_exists($ext, $allowed)) {
+			$msg="Erreur : Veuillez sélectionner un format de fichier valide.";
+		}
 
 		// Vérification de la taille du fichier (10Mo maximum)
 		$maxsize = 10 * 1024 * 1024;
-		if($fileformat > $maxsize) { die("Erreur : La taille du fichier est supérieure à la limite autorisée."); }
+		if($fileformat > $maxsize) {
+			$msg="Erreur : La taille du fichier est supérieure à la limite autorisée.";
+		}
 
 		// Vérification du type MIME du fichier
 		if(in_array($fileformat, $allowed)) {
@@ -25,15 +31,11 @@
 			// Vérification si le fichier existe avant de l'enregistrer.
 			if(file_exists("C:/wamp64/www/hopital_client_serveur/mesDocumentsUploades/" . $_FILES["file"]["name"])) { // Windows
 			//if(file_exists("/Applications/MAMP/htdocs/hopital_client_serveur/mesDocumentsUploades/" . $_FILES["file"]["name"])) { // Mac OS
-				echo $_FILES["file"]["name"] . " existe déjà.";
+				$msg="Erreur : ".$_FILES["file"]["name"] . " existe déjà.";
 			} else {
 				move_uploaded_file($_FILES["file"]["tmp_name"], "C:/wamp64/www/hopital_client_serveur/mesDocumentsUploades/" . $_FILES["file"]["name"]); // Windows
 				//move_uploaded_file($_FILES["file"]["tmp_name"], "/Applications/MAMP/htdocs/hopital_client_serveur/mesDocumentsUploades/" . $_FILES["file"]["name"]); // Mac OS
 
-				echo'
-				<div id="celluleDroite">      
-					  <h4> Votre fichier a été enregistré avec succès. </h4>
-				</div>';
 				// Récupération de la date actuelle 
 				$date_actuelle = date('Y-m-d');
 				// Fonction de hachage 
@@ -55,18 +57,18 @@
 						$y -> bindParam(7,$data);
 						$y -> execute();
 				} catch (Exception $e) {
-					die('Erreur : ' . $e -> getMessage());
+					$msg="Erreur : " . $e -> getMessage();
 				}       
 			}
 
 		} else {
-			echo "Erreur : Il y a eu un problème d'enregistrement de votre fichier. Veuillez réessayer."; 
+			$msg="Erreur : Il y a eu un problème d'enregistrement de votre fichier. Veuillez réessayer."; 
 		}
 
 	} else {
-		echo "Erreur: " . $_FILES["file"]["error"];
+		$msg="Erreur : " . $_FILES["file"]["error"];
 	}
 	
-	header ("location: index.php?param=".$param);
+	header ("location: index.php?param=".$param."&msg=".$msg);
 
 ?>
