@@ -28,6 +28,16 @@
 		// Vérification du type MIME du fichier
 		if(in_array($fileformat, $allowed)) {
 
+			// Nom du chemin du dossier créé
+			$directoryName = 'C:/wamp64/www/hopital_client_serveur/mesDocumentsUploades'; // Windows
+			//$directoryName = '/Applications/MAMP/htdocs/hopital_client_serveur/mesDocumentsUploades'; // Mac OS
+
+			// Vérification si le dossier existe déjà.
+			if(!is_dir($directoryName)){
+			    // Si le dossier n'existe pas, on le créé.
+			    mkdir($directoryName, 0755);
+			}
+
 			// Vérification si le fichier existe avant de l'enregistrer.
 			if(file_exists("C:/wamp64/www/hopital_client_serveur/mesDocumentsUploades/" . $_FILES["file"]["name"])) { // Windows
 			//if(file_exists("/Applications/MAMP/htdocs/hopital_client_serveur/mesDocumentsUploades/" . $_FILES["file"]["name"])) { // Mac OS
