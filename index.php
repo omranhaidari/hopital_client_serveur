@@ -18,7 +18,7 @@
 		<body>
 
 			<div id="gauche">';
-					include_once ('recherche_patient.php');
+					include_once('recherche_patient.php');
 
 					include_once('recherche_document.php');
 				echo'
@@ -27,7 +27,7 @@
 			<div id="droite">';
 				include_once('resultat_recherche.php');
 
-				include_once ('fiche_patient.php');
+				include_once('fiche_patient.php');
 			echo'
 			</div>
 

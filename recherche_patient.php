@@ -1,5 +1,7 @@
 <?php
 
+	session_start();
+
 	// Connexion à la base de données.
 	$connexion = mysqli_connect("localhost", "user1", "hcetylop","hopital_php");
 	// Message d'erreur en cas d'erreur de connexion à la base de données.
@@ -48,12 +50,16 @@
 		$resultat_patient = mysqli_query($connexion, $requete."ORDER BY patient.nom, patient.prenom;");
 	}
 
+	if(isset($_POST['rechercher_patient'])) {
+	 foreach($_POST as $p_key => $p_value) { $_SESSION[$p_key] = $p_value; }
+	}
+
 	echo'
 
 	<div id="celluleGauche">
 		<h2> Rechercher un patient </h2>
 			
-		<form action="index.php" method="post" class="formulaire">
+		<form action="index.php" method="post" '.$_SERVER['PHP_SELF'].' class="formulaire">
 			<fieldset>
 			
 				<legend>Formulaire</legend></br>';
@@ -61,12 +67,12 @@
 				// Nom du patient
 				echo'
 				<h4>Nom du patient :</h4>
-				<input type="text" name="nomPatient" id="nomPatient" placeholder="ex : DUPONT"/></br>';
+				<input type="text" name="nomPatient" id="nomPatient" '.$_SESSION['nomPatient'].' placeholder="ex : DUPONT"/></br>';
 
 				// Motif d'admission
 				echo'
 				<h4>Motif d\'admission :</h4>
-				<select name="motifAdmission" id="motifAdmission">
+				<select name="motifAdmission" id="motifAdmission" '.$_SESSION['motifAdmission'].'>
 					<option selected="selected" value="vide">Indifférent</option>';
 					while($dataR1 = mysqli_fetch_array($SelectAllMotifs))
 					{
@@ -78,7 +84,7 @@
 				// Pays d'origine
 				echo'
 				<h4>Pays d\'origine :</h4>
-				<select name="nomPays" id="nomPays">
+				<select name="nomPays" id="nomPays" '.$_SESSION['nomPays'].'>
 					<option selected="selected" value="vide">Indifférent</option>';
 					while($dataR2 = mysqli_fetch_array($SelectAllPays))
 					{
@@ -91,7 +97,7 @@
 				echo'
 				<h4>Intervalle des dates de naissances :</h4>
 				<div id="gauche">
-					<select name="dateDebut" id="dateDebut">
+					<select name="dateDebut" id="dateDebut" '.$_SESSION['dateDebut'].'>
 						<option selected="selected" value="vide">Indifférent</option>';
 						for($i = date('Y'); $i >= date('Y') - (date('Y') - 1900); $i--) // pour être sûr que c'est jusqu'à l'an 1900
 						{
@@ -102,7 +108,7 @@
 				</div>
 				
 				<div id="droite">
-					<select name="dateFin" id="dateFin">
+					<select name="dateFin" id="dateFin" '.$_SESSION['dateFin'].'>
 						<option selected="selected" value="vide">Indifférent</option>';
 						for($i = date('Y'); $i >= date('Y') - (date('Y') - 1900); $i--) // pour être sûr que c'est jusqu'à l'an 1900
 						{

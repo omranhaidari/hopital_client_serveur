@@ -7,6 +7,7 @@
 
 		echo' 
 		<div id="celluleDroite">
+			<button onclick="history.go(-1);" id="backButton">Retour</button>
 			<h2>Fiche détaillée du patient</h2>
 			
 			<table>

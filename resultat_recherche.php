@@ -4,6 +4,7 @@
 	if(isset($_POST['rechercher_patient'])) {
 		echo'
 		<div id="celluleDroite">
+			<button onclick="history.go(-1);" id="backButton">Retour</button>
 			<h2>Résultat de la recherche</h2>
 
 			<ul>';
@@ -30,6 +31,7 @@
 	if(isset($_POST['rechercher_document'])) {
 		echo'
 		<div id="celluleDroite">
+			<button onclick="history.go(-1);" id="backButton">Retour</button>
 			<h2>Résultat de la recherche</h2>';
 
 			if(mysqli_num_rows($resultat_document) == 0) {  
