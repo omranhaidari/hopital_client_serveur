@@ -17,11 +17,11 @@
 	<html>
 		<body>
 
-			<div id="gauche">
-				<div id="celluleGauche">';
+			<div id="gauche">';
 					include_once ('recherche_patient.php');
-				echo' 
-				</div>
+
+					include_once('recherche_document.php');
+				echo'
 			</div>
 
 			<div id="droite">';

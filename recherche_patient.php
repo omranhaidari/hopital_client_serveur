@@ -14,7 +14,7 @@
 	// Récupérations des noms, prénoms et codes des patients.
 	$requete = "SELECT DISTINCT patient.code, patient.nom, patient.prenom FROM patient, pays, motif WHERE patient.code_pays = pays.code AND patient.code_motif = motif.code ";
 
-	if(isset($_POST['rechercher'])) {
+	if(isset($_POST['rechercher_patient'])) {
 		
 		// Récupération des noms, prénoms et codes des patients correspondants grâce à la barre de recherche.
 		$nomPatient = utf8_decode($_POST['nomPatient']);
@@ -45,74 +45,77 @@
 		}
 		
 		// Récupération des noms, prénoms et codes des patients correspondants, par ordre alphabétique des noms puis par ordre alphabétique des prénoms (si le nom est identique).
-		$resultat = mysqli_query($connexion, $requete."ORDER BY patient.nom, patient.prenom;");
+		$resultat_patient = mysqli_query($connexion, $requete."ORDER BY patient.nom, patient.prenom;");
 	}
 
 	echo'
-	<h2> Rechercher un patient </h2>
-		
-	<form action="index.php" method="post" class="formulaire">
-		<fieldset>
-		
-			<legend>Formulaire</legend></br>';
 
-			// Nom du patient
-			echo'
-			<h4>Nom du patient :</h4>
-			<input type="text" name="nomPatient" id="nomPatient" placeholder="ex : DUPONT"/></br>';
-
-			// Motif d'admission
-			echo'
-			<h4>Motif d&apos;admission :</h4>
-			<select name="motifAdmission" id="motifAdmission">
-				<option selected="selected" value="vide">Indifférent</option>';
-				while($dataR1 = mysqli_fetch_array($SelectAllMotifs))
-				{
-					echo'<option value="'.utf8_encode($dataR1["libelle"]).'">'.utf8_encode($dataR1["libelle"]).'</option>';
-				}
-			echo'
-			</select>';
-
-			// Pays d'origine
-			echo'
-			<h4>Pays d&apos;origine :</h4>
-			<select name="nomPays" id="nomPays">
-				<option selected="selected" value="vide">Indifférent</option>';
-				while($dataR2 = mysqli_fetch_array($SelectAllPays))
-				{
-					echo'<option value="'.utf8_encode($dataR2["libelle"]).'">'.utf8_encode($dataR2["libelle"]).'</option>';
-				}
-			echo'
-			</select>';
+	<div id="celluleGauche">
+		<h2> Rechercher un patient </h2>
 			
-			// Intervalle des dates de naissances
-			echo'
-			<h4>Intervalle des dates de naissances :</h4>
-			<div id="gauche">
-				<select name="dateDebut" id="dateDebut">
+		<form action="index.php" method="post" class="formulaire">
+			<fieldset>
+			
+				<legend>Formulaire</legend></br>';
+
+				// Nom du patient
+				echo'
+				<h4>Nom du patient :</h4>
+				<input type="text" name="nomPatient" id="nomPatient" placeholder="ex : DUPONT"/></br>';
+
+				// Motif d'admission
+				echo'
+				<h4>Motif d\'admission :</h4>
+				<select name="motifAdmission" id="motifAdmission">
 					<option selected="selected" value="vide">Indifférent</option>';
-					for($i = date('Y'); $i >= date('Y') - (date('Y') - 1900); $i--) // pour être sûr que c'est jusqu'à l'an 1900
+					while($dataR1 = mysqli_fetch_array($SelectAllMotifs))
 					{
-						echo'<option value="'.$i.'">'.$i.'</option>';
+						echo'<option value="'.utf8_encode($dataR1["libelle"]).'">'.utf8_encode($dataR1["libelle"]).'</option>';
 					}
 				echo'
-				</select>
-			</div>
-			
-			<div id="droite">
-				<select name="dateFin" id="dateFin">
+				</select>';
+
+				// Pays d'origine
+				echo'
+				<h4>Pays d\'origine :</h4>
+				<select name="nomPays" id="nomPays">
 					<option selected="selected" value="vide">Indifférent</option>';
-					for($i = date('Y'); $i >= date('Y') - (date('Y') - 1900); $i--) // pour être sûr que c'est jusqu'à l'an 1900
+					while($dataR2 = mysqli_fetch_array($SelectAllPays))
 					{
-						echo'<option value="'.$i.'">'.$i.'</option>';
+						echo'<option value="'.utf8_encode($dataR2["libelle"]).'">'.utf8_encode($dataR2["libelle"]).'</option>';
 					}
 				echo'
-				</select>
-			</div>
-			
-			<input type="submit" name="rechercher" value="Rechercher" id="submit">
-			
-		</fieldset>
-	</form>';
+				</select>';
+				
+				// Intervalle des dates de naissances
+				echo'
+				<h4>Intervalle des dates de naissances :</h4>
+				<div id="gauche">
+					<select name="dateDebut" id="dateDebut">
+						<option selected="selected" value="vide">Indifférent</option>';
+						for($i = date('Y'); $i >= date('Y') - (date('Y') - 1900); $i--) // pour être sûr que c'est jusqu'à l'an 1900
+						{
+							echo'<option value="'.$i.'">'.$i.'</option>';
+						}
+					echo'
+					</select>
+				</div>
+				
+				<div id="droite">
+					<select name="dateFin" id="dateFin">
+						<option selected="selected" value="vide">Indifférent</option>';
+						for($i = date('Y'); $i >= date('Y') - (date('Y') - 1900); $i--) // pour être sûr que c'est jusqu'à l'an 1900
+						{
+							echo'<option value="'.$i.'">'.$i.'</option>';
+						}
+					echo'
+					</select>
+				</div>
+				
+				<input type="submit" name="rechercher_patient" value="Rechercher" id="submit">
+				
+			</fieldset>
+		</form>
+	</div>';
 
 ?>

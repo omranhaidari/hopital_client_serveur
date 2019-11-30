@@ -66,55 +66,57 @@
 		</div>';
 
 
-		// Liste des documents
-		echo'
-		<div id="celluleDroite">
-			<h2>Liste des documents</h2>
-			<table>
-				<tr>
-					<th>Nom fichier</th>
-					<th>Type</th>
-					<th>Format</th>
-					<th>Date</th>
-					<th>Visualiser</th>
-					<th>Télécharger</th>
-					<th>Imprimer</th>
-					<th>Partager</th>
-				</tr>';
 
-		        if (!$selectDocuments) {
-				    printf("Error: %s\n", mysqli_error($connexion));
-				    exit();
-				}
 
-				while($dataR5 = mysqli_fetch_array($selectDocuments)) {
-					echo'
-					<tr>
-						<td>'.utf8_encode($dataR5["nom_fichier"]).'</td>
-						<td>'.utf8_encode($dataR5["type"]).'</td>
-						<td>'.utf8_encode($dataR5["format"]).'</td>
-						<td>'.date("d/m/Y", strtotime(utf8_encode($dataR5["date"]))).'</td>
-						<td><a href="mesDocumentsUploades/'.utf8_encode($dataR5["nom_fichier"]).'" target="_blank"><img src="images/preview-file.png" title="Prévisualiser le document" alt="preview-file" height="30px" width="30px"/></a></td>
-						<td><a href="mesDocumentsUploades/'.utf8_encode($dataR5["nom_fichier"]).'" download="'.utf8_encode($dataR5["nom_fichier"]).'"><img src="images/download-file.jpg" title="Télécharger le document" alt="download-file" height="25px" width="25px"/></a></td>
-						<td><a href="print.php?url='.utf8_encode($dataR5["nom_fichier"]).'" target="_blank"><img src="images/print-file.png" title="Imprimer le document" alt="print-file" height="30px" width="30px"/></a></td>
-						<td><a href="share.php?url='.utf8_encode($dataR5["nom_fichier"]).'" target="_blank"><img src="images/share-file.png" title="Partager le document par email" alt="share-file" height="30px" width="30px"/></a></td>
-					</tr>';
-				}
-
+		// Liste des documents du patient
+		if(mysqli_num_rows($selectDocuments) > 0) { 
 			echo'
-			</table>
-		</div>';
+			<div id="celluleDroite">';
+				echo'
+				<h2>Liste des documents</h2>
+				<table>
+					<tr>
+						<th>Nom fichier</th>
+						<th>Type</th>
+						<th>Format</th>
+						<th>Date</th>
+						<th>Visualiser</th>
+						<th>Télécharger</th>
+						<th>Imprimer</th>
+						<th>Partager</th>
+					</tr>';
+
+					while($dataR5 = mysqli_fetch_array($selectDocuments)) {
+						echo'
+						<tr>
+							<td>'.utf8_encode($dataR5["nom_fichier"]).'</td>
+							<td>'.utf8_encode($dataR5["type"]).'</td>
+							<td>'.utf8_encode($dataR5["format"]).'</td>
+							<td>'.date("d/m/Y", strtotime(utf8_encode($dataR5["date"]))).'</td>
+							<td><a href="mesDocumentsUploades/'.utf8_encode($dataR5["nom_fichier"]).'" target="_blank"><img src="images/preview-file.png" title="Prévisualiser le document" alt="preview-file" height="30px" width="30px"/></a></td>
+							<td><a href="mesDocumentsUploades/'.utf8_encode($dataR5["nom_fichier"]).'" download="'.utf8_encode($dataR5["nom_fichier"]).'"><img src="images/download-file.jpg" title="Télécharger le document" alt="download-file" height="25px" width="25px"/></a></td>
+							<td><a href="print.php?url='.utf8_encode($dataR5["nom_fichier"]).'" target="_blank"><img src="images/print-file.png" title="Imprimer le document" alt="print-file" height="30px" width="30px"/></a></td>
+							<td><a href="share.php?url='.utf8_encode($dataR5["nom_fichier"]).'" target="_blank"><img src="images/share-file.png" title="Partager le document par email" alt="share-file" height="30px" width="30px"/></a></td>
+						</tr>';
+					}
+
+				echo'
+				</table>
+			</div>';
+		}
+
+		
 		
 
-		// Enregistrement des document
+		// Enregistrement des documents
 	    echo'
 	    <div id="celluleDroite">
 			<h2>Enregistrer un document</h2>';
 			
 			// Si il y a eu une demande d'enregistrement de document, afficher le message d'erreur ou de succès
 			if(isset($_GET['msg'])){
-				if($_GET['msg']==null){
-					echo'<h3 style="color:green">Votre fichier a été enregistré avec succès !</h3>';
+				if($_GET['msg'] == null){
+					echo'<h3 style="color:green">Votre document a été enregistré avec succès !</h3>';
 				}else{
 					echo'<h3 style="color:red">'.$_GET['msg'].'</h3>';
 				}
@@ -126,13 +128,18 @@
 			        <h4>Fichier :</h4>
 			        <input type="file" name="file" id="file" required>
 
-					<h4>Type du document :</h4>
+					<h4>Type de document :</h4>
 					<select name="type_doc" id="type_doc" width="10p%" required>
-						<option value="">Choisir un type de fichier</option>
-						<option value="ordonnance">Ordonnance</option>
-						<option value="radio">Radio</option>
-						<option value="bilan_sanguin">Bilan sanguin</option>
-						<option value="bilan_general">Bilan general</option>
+						<option value="">Choisir un type de document</option>
+						<option value="Bilan general">Bilan general</option>
+						<option value="Bilan sanguin">Bilan sanguin</option>
+						<option value="Compte rendu de consultation">Compte rendu de consultation</option>
+						<option value="Compte rendu d\'intervention">Compte rendu d\'intervention</option>
+						<option value="Compte rendu d\'hospitalisation">Compte rendu d\'hospitalisation</option>
+						<option value="Feuille de surveillance">Feuille de surveillance</option>
+						<option value="Ordonnance">Ordonnance</option>
+						<option value="Radio">Radio</option>
+						<option value="Resultats d\'examen">Resultats d\'examen</option>
 					</select>
 					
 					<input id="param" name="param" type="hidden" value="'.$_GET['param'].'">
