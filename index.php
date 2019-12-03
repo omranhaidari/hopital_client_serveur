@@ -7,7 +7,7 @@
 		<meta charset="utf-8"/>
 		<link href="css/style.css" rel="stylesheet">
 		<title>Hôpital Didier LEFEBVRE</title>
-		<h1>Hôpital Didier LEFEBVRE</h1>
+		<a href="index.php"><h1>Hôpital Didier LEFEBVRE</h1></a>
 	<head>';
 
 	// include : inclut le contenu d'un autre fichier appelé, mais ne provoque pas d'erreur bloquante si le fichier appelé est indisponible (le reste du code est exécuté).
@@ -21,6 +21,8 @@
 					include_once('recherche_patient.php');
 
 					include_once('recherche_document.php');
+					
+					include_once('urgence.php');
 				echo'
 			</div>
 

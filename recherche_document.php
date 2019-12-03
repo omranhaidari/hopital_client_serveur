@@ -17,6 +17,15 @@
 	if(isset($_POST['rechercher_document'])) {
 		
 		// Récupération des noms, types, formats et dates d'enregistrement des documents correspondants grâce au type de document.
+		$nomDocument = utf8_decode($_POST['nomDocument']);
+		$nomDocument = htmlspecialchars($nomDocument); // pour sécuriser le formulaire contre les intrusions html
+		$nomDocument = strip_tags($nomDocument); // pour supprimer les balises html dans la requête
+		
+		if($nomDocument != null) {
+			$requete = $requete."AND document.nom_fichier LIKE '".$nomDocument."%' ";
+		}
+		
+		// Récupération des noms, types, formats et dates d'enregistrement des documents correspondants grâce au type de document.
 		$typeDocument = utf8_decode($_POST['typeDocument']);
 		if($typeDocument != "vide") {
 			$requete = $requete."AND document.type = '".$typeDocument."' ";
@@ -49,6 +58,10 @@
 			<fieldset>
 			
 				<legend>Formulaire</legend></br>';
+				// Nom du document
+				echo'
+				<h4>Nom du document :</h4>
+				<input type="text" name="nomDocument" id="nomDocument" placeholder="ex : bulletin1"/></br>';
 
 				// Type de document
 				echo'

@@ -7,7 +7,7 @@
 
 		echo' 
 		<div id="celluleDroite">
-			<button onclick="history.go(-1);" id="backButton">Retour</button>
+			<button onclick="history.go(-2);" id="backButton">Retour</button>
 			<h2>Fiche détaillée du patient</h2>
 			
 			<table>
@@ -105,10 +105,7 @@
 				</table>
 			</div>';
 		}
-
 		
-		
-
 		// Enregistrement des documents
 	    echo'
 	    <div id="celluleDroite">
@@ -126,6 +123,7 @@
 			echo'
 	        <form action="upload.php" method="post" enctype="multipart/form-data" class="formulaire">
 				<fieldset>
+					</br>
 			        <h4>Fichier :</h4>
 			        <input type="file" name="file" id="file" required>
 
@@ -145,7 +143,7 @@
 					
 					<input id="param" name="param" type="hidden" value="'.$_GET['param'].'">
 
-			        <input type="submit" name="submit" value="Upload" id="submit">
+			        <input type="submit" name="submit" value="Envoyer" id="submit">
 			        <p><strong>Note:</strong> Seuls les formats .jpg, .jpeg, .gif, .png et .pdf sont autorisés jusqu\'à une taille maximale de 10 Mo.</p>
 		        </fieldset>
 	    	</form>
