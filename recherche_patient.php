@@ -15,8 +15,17 @@
 	$SelectAllPays = mysqli_query($connexion, "SELECT libelle FROM pays ORDER BY libelle ASC");
 	// Récupérations des noms, prénoms et codes des patients.
 	$requete = "SELECT DISTINCT patient.code, patient.nom, patient.prenom FROM patient, pays, motif WHERE patient.code_pays = pays.code AND patient.code_motif = motif.code ";
+	
+	if(!isset($_SESSION['nomPatient'])){ // Vérification qu'une session a déjà été ouverte auparavant, si non -> initialisation des varaibles de session à null
+		$_SESSION['nomPatient']=null;
+		$_SESSION['motifAdmission']=null;
+		$_SESSION['nomPays']=null;
+		$_SESSION['dateDebut']=null;
+		$_SESSION['dateFin']=null;
+		
+	}
 
-	if(isset($_POST['rechercher_patient'])) {
+	if(isset($_POST['rechercher_patient'])) { // Si une recherche de patient a été effectué
 		
 		// Récupération des noms, prénoms et codes des patients correspondants grâce à la barre de recherche.
 		$nomPatient = utf8_decode($_POST['nomPatient']);
@@ -48,10 +57,10 @@
 		
 		// Récupération des noms, prénoms et codes des patients correspondants, par ordre alphabétique des noms puis par ordre alphabétique des prénoms (si le nom est identique).
 		$resultat_patient = mysqli_query($connexion, $requete."ORDER BY patient.nom, patient.prenom;");
-	}
-
-	if(isset($_POST['rechercher_patient'])) {
-	 foreach($_POST as $p_key => $p_value) { $_SESSION[$p_key] = $p_value; }
+		
+		foreach($_POST as $p_key => $p_value) { 
+			$_SESSION[$p_key] = $p_value;
+		}
 	}
 
 	echo'
@@ -63,16 +72,18 @@
 			<fieldset>
 			
 				<legend>Formulaire</legend></br>';
-
+				
 				// Nom du patient
 				echo'
 				<h4>Nom du patient :</h4>
-				<input type="text" name="nomPatient" id="nomPatient" '.$_SESSION['nomPatient'].' placeholder="ex : DUPONT"/></br>';
+				<input type="text" name="nomPatient" id="nomPatient" value="'.$_SESSION['nomPatient'].'" placeholder="ex : DUPONT"/></br>';
+
+				
 
 				// Motif d'admission
 				echo'
 				<h4>Motif d\'admission :</h4>
-				<select name="motifAdmission" id="motifAdmission" '.$_SESSION['motifAdmission'].'>
+				<select name="motifAdmission" id="motifAdmission" value="'.$_SESSION['motifAdmission'].'">
 					<option selected="selected" value="vide">Indifférent</option>';
 					while($dataR1 = mysqli_fetch_array($SelectAllMotifs))
 					{
@@ -84,7 +95,7 @@
 				// Pays d'origine
 				echo'
 				<h4>Pays d\'origine :</h4>
-				<select name="nomPays" id="nomPays" '.$_SESSION['nomPays'].'>
+				<select name="nomPays" id="nomPays" value="'.$_SESSION['nomPays'].'">
 					<option selected="selected" value="vide">Indifférent</option>';
 					while($dataR2 = mysqli_fetch_array($SelectAllPays))
 					{
@@ -97,7 +108,7 @@
 				echo'
 				<h4>Intervalle des dates de naissances :</h4>
 				<div id="gauche">
-					<select name="dateDebut" id="dateDebut" '.$_SESSION['dateDebut'].'>
+					<select name="dateDebut" id="dateDebut" value="'.$_SESSION['dateDebut'].'">
 						<option selected="selected" value="vide">Indifférent</option>';
 						for($i = date('Y'); $i >= date('Y') - (date('Y') - 1900); $i--) // pour être sûr que c'est jusqu'à l'an 1900
 						{
@@ -108,7 +119,7 @@
 				</div>
 				
 				<div id="droite">
-					<select name="dateFin" id="dateFin" '.$_SESSION['dateFin'].'>
+					<select name="dateFin" id="dateFin" value="'.$_SESSION['dateFin'].'">
 						<option selected="selected" value="vide">Indifférent</option>';
 						for($i = date('Y'); $i >= date('Y') - (date('Y') - 1900); $i--) // pour être sûr que c'est jusqu'à l'an 1900
 						{

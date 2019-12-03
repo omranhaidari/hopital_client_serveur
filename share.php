@@ -25,14 +25,11 @@
 		$headers .= 'Content-Type: multipart/mixed;boundary='.$boundary."\r\n";
 		$headers .= "\r\n";
 		 
-		// Message
-		$msg = $message."\r\n\r\n";
-		 
 		// Texte
-		$msg .= '--'.$boundary."\r\n";
+		$msg = '--'.$boundary."\r\n";
 		$msg .= 'Content-type:text/plain;charset=utf-8'."\r\n";
 		$msg .= 'Content-transfer-encoding:8bit'."\r\n";
-		$msg .= 'Partage de document.'."\r\n";
+		$msg .= $message."\r\n";
 		 
 		// Pièce jointe
 		$file_name = 'mesDocumentsUploades/'.$url;
@@ -47,7 +44,7 @@
 			$f = fclose($handle);
 		 
 			$msg .= '--'.$boundary."\r\n";
-			$msg .= 'Content-type:'.$file_type.';name='.$file_name."\r\n";
+			$msg .= 'Content-type:'.$file_type.';name='.$url."\r\n";
 			$msg .= 'Content-transfer-encoding:base64'."\r\n";
 			$msg .= $content."\r\n";
 		}
