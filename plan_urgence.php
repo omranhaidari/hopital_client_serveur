@@ -9,7 +9,7 @@
 	}
 	
 	if(isset($_POST['recuperer'])) {
-		$id=32;
+		
 		$reponse = $bdd->query('select nom_fichier,contenu FROM document') or die("Error query failed");
 		
 		$nomDossier = utf8_decode($_POST['nom_dossier']);
