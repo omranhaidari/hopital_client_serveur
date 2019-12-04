@@ -34,13 +34,13 @@
 	
 	echo'
 	<div id="celluleGauche">
-		<h2>Extraction d&apos;urgence des documents de la BD</h2>
+		<h2>Récupérer tous les documents</h2>
 		<form action="index.php" method="post" class="formulaire">
 			<fieldset>
 			</br>
 			<h4>Nom du dossier de destination :</h4>
 			<input type="text" name="nom_dossier" placeholder="ex : urgence" required/>
-			<input type="submit" name="recuperer" value="Récuperer" id="submit">
+			<input type="submit" name="recuperer" value="Récupérer" id="submit">
 			</fieldset>
 		</form>
 	</div>';

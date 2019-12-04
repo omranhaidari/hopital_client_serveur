@@ -108,46 +108,48 @@
 		
 		// Enregistrement des documents
 	    echo'
-	    <div id="celluleDroite">
-			<h2>Enregistrer un document</h2>';
-			
-			// Si il y a eu une demande d'enregistrement de document, afficher le message d'erreur ou de succès
-			if(isset($_GET['msg'])){
-				if($_GET['msg'] == null){
-					echo'<h3 style="color:green">Votre document a été enregistré avec succès !</h3>';
-				}else{
-					echo'<h3 style="color:red">'.$_GET['msg'].'</h3>';
+	    <center>
+	    	<div id="celluleUpload">
+				<h2>Enregistrer un document</h2>';
+				
+				// Si il y a eu une demande d'enregistrement de document, afficher le message d'erreur ou de succès
+				if(isset($_GET['msg'])){
+					if($_GET['msg'] == null){
+						echo'<h3 style="color:green">Votre document a été enregistré avec succès !</h3>';
+					}else{
+						echo'<h3 style="color:red">'.$_GET['msg'].'</h3>';
+					}
 				}
-			}
-			
-			echo'
-	        <form action="upload.php" method="post" enctype="multipart/form-data" class="formulaire">
-				<fieldset>
-					</br>
-			        <h4>Fichier :</h4>
-			        <input type="file" name="file" id="file" required>
+				
+				echo'
+		        <form action="upload.php" method="post" enctype="multipart/form-data" class="formulaire">
+					<fieldset>
+						</br>
+				        <h4>Fichier :</h4>
+				        <input type="file" name="file" id="file" required>
 
-					<h4>Type de document :</h4>
-					<select name="type_doc" id="type_doc" width="10p%" required>
-						<option value="">Choisir un type de document</option>
-						<option value="Bilan general">Bilan general</option>
-						<option value="Bilan sanguin">Bilan sanguin</option>
-						<option value="Compte rendu de consultation">Compte rendu de consultation</option>
-						<option value="Compte rendu d\'intervention">Compte rendu d\'intervention</option>
-						<option value="Compte rendu d\'hospitalisation">Compte rendu d\'hospitalisation</option>
-						<option value="Feuille de surveillance">Feuille de surveillance</option>
-						<option value="Ordonnance">Ordonnance</option>
-						<option value="Radio">Radio</option>
-						<option value="Resultats d\'examen">Resultats d\'examen</option>
-					</select>
-					
-					<input id="param" name="param" type="hidden" value="'.$_GET['param'].'">
+						<h4>Type de document :</h4>
+						<select name="type_doc" id="type_doc" width="10p%" required>
+							<option value="">Choisir un type de document</option>
+							<option value="Bilan general">Bilan general</option>
+							<option value="Bilan sanguin">Bilan sanguin</option>
+							<option value="Compte rendu de consultation">Compte rendu de consultation</option>
+							<option value="Compte rendu d\'intervention">Compte rendu d\'intervention</option>
+							<option value="Compte rendu d\'hospitalisation">Compte rendu d\'hospitalisation</option>
+							<option value="Feuille de surveillance">Feuille de surveillance</option>
+							<option value="Ordonnance">Ordonnance</option>
+							<option value="Radio">Radio</option>
+							<option value="Resultats d\'examen">Resultats d\'examen</option>
+						</select>
+						
+						<input id="param" name="param" type="hidden" value="'.$_GET['param'].'">
 
-			        <input type="submit" name="submit" value="Envoyer" id="submit">
-			        <p><strong>Note:</strong> Seuls les formats .jpg, .jpeg, .gif, .png et .pdf sont autorisés jusqu\'à une taille maximale de 10 Mo.</p>
-		        </fieldset>
-	    	</form>
-		</div>';
+				        <input type="submit" name="submit" value="Enregistrer" id="submit">
+				        <p><strong>Note:</strong> Seuls les formats .jpg, .jpeg, .gif, .png et .pdf sont autorisés jusqu\'à une taille maximale de 10 Mo.</p>
+			        </fieldset>
+		    	</form>
+			</div>
+		<center>';
 	   
 	}
 
