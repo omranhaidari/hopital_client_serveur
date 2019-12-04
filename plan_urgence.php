@@ -8,6 +8,8 @@
         die('Erreur : ' . $e->getMessage());
 	}
 	
+	$msg=null;
+	
 	if(isset($_POST['recuperer'])) {
 		
 		$reponse = $bdd->query('select nom_fichier,contenu FROM document') or die("Error query failed");
@@ -30,11 +32,14 @@
 			$a=$donnees['nom_fichier'];
 			file_put_contents($directoryName.$a,$b);
 		}
+		
+		$msg="Tous les fichiers ont été récupérés avec succès";
 	}
 	
 	echo'
 	<div id="celluleGauche">
 		<h2>Récupérer tous les documents</h2>
+		<h3 style="color:green">'.$msg.'</h3>
 		<form action="index.php" method="post" class="formulaire">
 			<fieldset>
 			</br>
