@@ -93,7 +93,7 @@
 				<div id="gauche">
 					<select name="dateDebut" id="dateDebut">
 						<option selected="selected" value="vide">Indifférent</option>';
-						for($i = date('Y'); $i >= date('Y') - (date('Y') - 1900); $i--) // pour être sûr que c'est jusqu'à l'an 1900
+						for($i = date('Y'); $i >= date('Y') - (date('Y') - 2000); $i--) // pour être sûr que c'est jusqu'à l'an 2000
 						{
 							echo'<option value="'.$i.'">'.$i.'</option>';
 						}
@@ -104,7 +104,7 @@
 				<div id="droite">
 					<select name="dateFin" id="dateFin">
 						<option selected="selected" value="vide">Indifférent</option>';
-						for($i = date('Y'); $i >= date('Y') - (date('Y') - 1900); $i--) // pour être sûr que c'est jusqu'à l'an 1900
+						for($i = date('Y'); $i >= date('Y') - (date('Y') - 2000); $i--) // pour être sûr que c'est jusqu'à l'an 2000
 						{
 							echo'<option value="'.$i.'">'.$i.'</option>';
 						}

@@ -18,18 +18,18 @@
 		<body>
 
 			<div id="gauche">';
-					include_once('recherche_patient.php');
+					include_once('recherche/recherche_patient.php');
 
-					include_once('recherche_document.php');
+					include_once('recherche/recherche_document.php');
 					
-					include_once('plan_urgence.php');
+					include_once('document/plan_urgence.php');
 				echo'
 			</div>
 
 			<div id="droite">';
-				include_once('resultat_recherche.php');
+				include_once('recherche/resultat_recherche.php');
 
-				include_once('fiche_patient.php');
+				include_once('patient/fiche_patient.php');
 			echo'
 			</div>
 

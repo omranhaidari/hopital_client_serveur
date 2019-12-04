@@ -9,20 +9,20 @@
 		$filename = $_FILES["file"]["name"];
 		$fileformat = $_FILES["file"]["type"];
 		$filesize = $_FILES["file"]["size"];       
-		$data= file_get_contents($_FILES["file"]["tmp_name"]);
-		$filetype=$_POST['type_doc'];
-		$msg=null;
+		$data = file_get_contents($_FILES["file"]["tmp_name"]);
+		$filetype = $_POST['type_doc'];
+		$msg = null;
 
 		// Vérification de l'extension du fichier
 		$ext = pathinfo($filename, PATHINFO_EXTENSION);
 		if(!array_key_exists($ext, $allowed)) {
-			$msg="Erreur : Veuillez sélectionner un format de fichier valide.";
+			$msg = "Erreur : Veuillez sélectionner un format de fichier valide.";
 		}
 
 		// Vérification de la taille du fichier (10Mo maximum)
 		$maxsize = 10 * 1024 * 1024;
 		if($fileformat > $maxsize) {
-			$msg="Erreur : La taille du fichier est supérieure à la limite autorisée.";
+			$msg = "Erreur : La taille du fichier est supérieure à la limite autorisée.";
 		}
 
 		// Vérification du type MIME du fichier
@@ -67,18 +67,18 @@
 						$y -> bindParam(7,$data);
 						$y -> execute();
 				} catch (Exception $e) {
-					$msg="Erreur : " . $e -> getMessage();
+					$msg = "Erreur : " . $e -> getMessage();
 				}       
 			}
 
 		} else {
-			$msg="Erreur : Il y a eu un problème d'enregistrement de votre fichier. Veuillez réessayer."; 
+			$msg = "Erreur : Il y a eu un problème d'enregistrement de votre fichier. Veuillez réessayer."; 
 		}
 
 	} else {
-		$msg="Erreur : " . $_FILES["file"]["error"];
+		$msg = "Erreur : " . $_FILES["file"]["error"];
 	}
 	
-	header ("location: index.php?param=".$param."&msg=".$msg);
+	header("location: ./../index.php?param=".$param."&msg=".$msg);
 
 ?>

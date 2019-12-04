@@ -5,12 +5,12 @@
 	echo'
 	<head>
 		<meta charset="utf-8"/>
-		<link href="css/style.css" rel="stylesheet">
+		<link href="./../css/style.css" rel="stylesheet">
 		<title>Hôpital Didier LEFEBVRE</title>
 	<head>';
 	
 	if(isset($_POST['envoyer'])) {
-		
+
 		$to = htmlentities($_POST['email']); 
 		$subject = htmlentities($_POST['objet']); 
 		$message = htmlentities($_POST['message']);
@@ -52,9 +52,9 @@
 		// Fin
 		$msg .= '--'.$boundary."\r\n";
 		 
-		// Function mail()
-		if(mail($to, $subject, $msg, $headers)==true){  //Envoi du mail
-			echo "<script language='javascript'>window.close()</script>"; //Fermeture de la fenêtre
+		// Fonction mail()
+		if(mail($to, $subject, $msg, $headers)==true){ // Envoi du mail
+			echo "<script language='javascript'>window.close()</script>"; // Fermeture de la fenêtre
 		}
 		else{
 			echo "error";
