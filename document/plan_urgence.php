@@ -2,7 +2,7 @@
 
 	// Connexion à la base de données.
 	try{
-		$bdd = new PDO('mysql : host = localhost; dbname = hopital_php; charset = utf8', 'user1', 'hcetylop');
+		$bdd = new PDO('mysql:host=localhost; dbname=hopital_php; charset=utf8', 'user1', 'hcetylop');
 		$bdd -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 	}catch (Exception $e){
         die('Erreur : ' . $e->getMessage());
