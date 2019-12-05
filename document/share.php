@@ -32,7 +32,7 @@
 		$msg .= $message."\r\n";
 		 
 		// Document en pièce jointe du mail
-		$file_name = 'mesDocumentsUploades/'.$url;
+		$file_name = './../mesDocumentsUploades/'.$url;
 		if (file_exists($file_name))
 		{
 			$file_type = filetype($file_name);
