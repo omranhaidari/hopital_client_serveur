@@ -12,12 +12,14 @@
 	
 	if(isset($_POST['recuperer'])) {
 		
+		// Récupération de tous les documents dde la base de données.
 		$reponse = $bdd->query('SELECT nom_fichier,contenu FROM document') or die("Error query failed");
 		
 		$nomDossier = utf8_decode($_POST['nom_dossier']);
 		$nomDossier = htmlspecialchars($nomDossier); // pour sécuriser le formulaire contre les intrusions html
 		$nomDossier = strip_tags($nomDossier); // pour supprimer les balises html dans la requête
 		
+		// Chemin du répertoire/dossier de destination (pour l'enregistrement des documents).
 		$directoryName = 'C:/'.$nomDossier.'/'; // Windows
 		//$directoryName = '/Documents/'.$_GET['nom_dossier'].'/'; // Mac OS
 		
@@ -27,10 +29,11 @@
 			mkdir($directoryName, 0755);
 		}
 		
+		// Tant qu'il y a une ligne de résultat, on récupère le nom du fichier ainsi que son contenu.
 		while($donnees = $reponse->fetch()){
 			$nomFichier = $donnees['nom_fichier'];
 			$contenu = $donnees['contenu'];
-			file_put_contents($directoryName.$nomFichier,$contenu);
+			file_put_contents($directoryName.$nomFichier, $contenu);
 		}
 		
 		$msg = "Tous les fichiers ont été récupérés avec succès";

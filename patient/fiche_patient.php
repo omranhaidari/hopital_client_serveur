@@ -3,6 +3,8 @@
 	if(isset($_GET['param'])) {
 		// Récupération des données du patient sélectionné.
 		$selectProfil = mysqli_query($connexion, "SELECT patient.nom, patient.prenom, patient.sexe, patient.date_naissance, patient.num_secu, pays.libelle AS libelle_pays, patient.date_prem_entree, motif.libelle AS libelle_motif FROM patient, motif, pays WHERE patient.code_pays = pays.code AND patient.code_motif = motif.code AND patient.code = ".$_GET['param']);
+
+		// Récupération des documents du patient sélectionné.
 		$selectDocuments = mysqli_query($connexion, "SELECT nom_fichier, type, format, date FROM patient, document WHERE patient.code = document.code_patient AND patient.code = ".$_GET['param']);
 
 		echo' 
@@ -26,6 +28,7 @@
 				// Affichage de la fiche détaillée du patient sélectionné, dont l'identifiant a été passé en paramètre (par URL), sous forme d'un tableau.
 				while($dataR4 = mysqli_fetch_array($selectProfil))
 				{
+					// Si le patient est un homme, on affiche la photo d'un homme ainsi que ses nom et prénom.
 					if($dataR4["sexe"] == "M") {
 						echo'
 						<center>
@@ -37,6 +40,7 @@
 						<br>';
 					}
 
+					// Si le patient est une femme, on affiche la photo d'une femme ainsi que ses nom et prénom.
 					if($dataR4["sexe"] == "F") {
 						echo'
 						<center>
@@ -86,6 +90,7 @@
 						<th>Partager</th>
 					</tr>';
 
+					// Retourne toutes les lignes de résultat pour les documents du patient sous la forme d'un tableau.
 					while($dataR5 = mysqli_fetch_array($selectDocuments)) {
 						echo'
 						<tr>
@@ -113,7 +118,7 @@
 	    	<div id="celluleUpload">
 				<h2>Enregistrer un document</h2>';
 				
-				// Si il y a eu une demande d'enregistrement de document, afficher le message d'erreur ou de succès
+				// Si il y a eu une demande d'enregistrement de document, on affiche le message d'erreur ou de succès
 				if(isset($_GET['msg'])){
 					if($_GET['msg'] == null){
 						echo'<h3 style="color:green">Votre document a été enregistré avec succès !</h3>';

@@ -9,6 +9,7 @@
 
 			<ul>';
 
+				// Si aucun résultat ne correspond à la recherche, on affiche "Aucun résultat trouvé pour : $nomPatient !" pour la recherche via la barre de recherche, sinon on affiche "Aucun document trouvé !" pour la recherche via le formulaire.
 				if(mysqli_num_rows($resultat_patient) == 0) {  
 					if(!empty($nomPatient))
 						echo "Aucun résultat trouvé pour : $nomPatient !";
@@ -34,6 +35,7 @@
 			<button onclick="history.go(-1);" id="backButton">Retour</button>
 			<h2>Résultat de la recherche</h2>';
 
+			// Si aucun résultat ne correspond à la recherche, on affiche "Aucun document trouvé !".
 			if(mysqli_num_rows($resultat_document) == 0) {  
 				echo "Aucun document trouvé !";
      		} else {
@@ -51,6 +53,7 @@
 						<th>Partager</th>
 					</tr>';
 
+					// Retourne toutes les lignes de résultat de la recherche de documents sous la forme d'un tableau.
 					while($dataR4 = mysqli_fetch_array($resultat_document)) {
 						echo'
 						<tr>

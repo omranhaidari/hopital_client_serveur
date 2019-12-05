@@ -16,32 +16,32 @@
 		$message = htmlentities($_POST['message']);
 		$url = htmlentities($_POST['url']);
 		 
-		// clé aléatoire de limite
+		// Création d'une clé aléatoire de limite
 		$boundary = md5(uniqid(microtime(), TRUE));
 		 
-		// Headers
+		// En-tête du mail
 		$headers = 'From: Hôpital Didier LEFEBVRE <mail@server.com>'."\r\n";
 		$headers .= 'Mime-Version: 1.0'."\r\n";
 		$headers .= 'Content-Type: multipart/mixed;boundary='.$boundary."\r\n";
 		$headers .= "\r\n";
 		 
-		// Texte
+		// Message du mail
 		$msg = '--'.$boundary."\r\n";
 		$msg .= 'Content-type:text/plain;charset=utf-8'."\r\n";
 		$msg .= 'Content-transfer-encoding:8bit'."\r\n";
 		$msg .= $message."\r\n";
 		 
-		// Pièce jointe
+		// Document en pièce jointe du mail
 		$file_name = 'mesDocumentsUploades/'.$url;
 		if (file_exists($file_name))
 		{
 			$file_type = filetype($file_name);
 			$file_size = filesize($file_name);
 		 
-			$handle = fopen($file_name, 'r') or die('File '.$file_name.'can t be open');
-			$content = fread($handle, $file_size);
-			$content = chunk_split(base64_encode($content));
-			$f = fclose($handle);
+			$handle = fopen($file_name, 'r') or die('File '.$file_name.'can t be open'); // ouverture du document
+			$content = fread($handle, $file_size); // lecture du document (en binaire)
+			$content = chunk_split(base64_encode($content)); // scinde une chaîne de contenu du document
+			$f = fclose($handle); // fermeture du document
 		 
 			$msg .= '--'.$boundary."\r\n";
 			$msg .= 'Content-type:'.$file_type.';name='.$url."\r\n";
@@ -49,12 +49,12 @@
 			$msg .= $content."\r\n";
 		}
 		 
-		// Fin
+		// Fin du mail
 		$msg .= '--'.$boundary."\r\n";
 		 
-		// Fonction mail()
-		if(mail($to, $subject, $msg, $headers)==true){ // Envoi du mail
-			echo "<script language='javascript'>window.close()</script>"; // Fermeture de la fenêtre
+		// Envoi du mail
+		if(mail($to, $subject, $msg, $headers) == true){ // envoi du mail
+			echo "<script language='javascript'>window.close()</script>"; // fermeture de la fenêtre
 		}
 		else{
 			echo "error";

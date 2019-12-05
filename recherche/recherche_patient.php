@@ -16,12 +16,12 @@
 	// Récupérations des noms, prénoms et codes des patients.
 	$requete = "SELECT DISTINCT patient.code, patient.nom, patient.prenom FROM patient, pays, motif WHERE patient.code_pays = pays.code AND patient.code_motif = motif.code ";
 	
-	if(!isset($_SESSION['nomPatient'])){ // Vérification qu'une session a déjà été ouverte auparavant, si non -> initialisation des varaibles de session à null
-		$_SESSION['nomPatient']=null;
-		$_SESSION['motifAdmission']=null;
-		$_SESSION['nomPays']=null;
-		$_SESSION['dateDebut']=null;
-		$_SESSION['dateFin']=null;
+	if(!isset($_SESSION['nomPatient'])){ // Vérification qu'une session a déjà été ouverte auparavant, sinon on itialise des varaibles de session à null
+		$_SESSION['nomPatient'] = null;
+		$_SESSION['motifAdmission'] = null;
+		$_SESSION['nomPays'] = null;
+		$_SESSION['dateDebut'] = null;
+		$_SESSION['dateFin'] = null;
 		
 	}
 

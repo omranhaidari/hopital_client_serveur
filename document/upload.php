@@ -1,16 +1,16 @@
 <?php
 
-	$param=$_POST['param'];
+	$param = $_POST['param'];
 
 	// Vérification si le fichier a été enregistré sans erreur.
 	if(isset($_FILES["file"]) && $_FILES["file"]["error"] == 0) {
 		$allowed = array("jpg" => "image/jpg", "JPG" => "image/JPG", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png","PNG" => "image/PNG", "pdf" => "application/pdf","PDF" => "application/PDF" );
 
-		$filename = $_FILES["file"]["name"];
-		$fileformat = $_FILES["file"]["type"];
-		$filesize = $_FILES["file"]["size"];       
-		$data = file_get_contents($_FILES["file"]["tmp_name"]);
-		$filetype = $_POST['type_doc'];
+		$filename = $_FILES["file"]["name"]; // nom du fichier
+		$fileformat = $_FILES["file"]["type"]; // format du fichier
+		$filesize = $_FILES["file"]["size"]; // taille du fichier
+		$data = file_get_contents($_FILES["file"]["tmp_name"]); // contenu du fichier
+		$filetype = $_POST['type_doc']; // type du fichier
 		$msg = null;
 
 		// Vérification de l'extension du fichier
@@ -79,6 +79,7 @@
 		$msg = "Erreur : " . $_FILES["file"]["error"];
 	}
 	
+	// Redirection vers la page d'accueil.
 	header("location: ./../index.php?param=".$param."&msg=".$msg);
 
 ?>
